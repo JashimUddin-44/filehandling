@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Image Upload</title>
+  <title>Image Update</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -25,23 +25,16 @@
     <div class="card bg-white">
       <div class="card-header text-center"><h1 class="text-primary">Image Upload In This Form</h1></div>
       <div class="card-body pt0 rounded-bottom ps" id="open-projects-container" style="height: 330px; position: relative;">
-    @if(Session::has('success'))
-    <p class="alert alert-primary">{{Session::get('success')}}</p>
-    @endif
 
- <form action="{{route('image.store')}}" method="post" enctype="multipart/form-data">
+ <form action="" method="post" enctype="multipart/form-data">
     @csrf
     <div class="form-group ">
         <label for="image"><h1>Image</h1></label>
         <input type="file" name="image" class="form-control form-control-lg">
-        <div>
-            @error('image')
-            <strong class="text-danger">{{$message}}</strong>
-            @enderror
-        </div>
+        <img src="{{asset ('upload/image/'.$imageEdit->image)}}" alt="Image" class="rounded-circle" height="80px" width="80px">
     </div>
     <div class="form-group text-center mt-3">
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary">Update</button>
     </div>
  </form>
  </div>

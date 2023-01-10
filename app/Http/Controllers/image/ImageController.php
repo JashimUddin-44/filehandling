@@ -28,4 +28,14 @@ class ImageController extends Controller
       return to_route('image.form')->with('success','Image Uploaded Successfully');
      
     }
+
+    public function view(){
+      $images = Picture::all();
+      return view('imageUpload.image_view',compact('images'));
+    }
+
+    public function edit($id){
+      $imageEdit = Picture::find($id);
+      return view('imageUpload.imageEdit',compact('imageEdit'));
+    }
 }
