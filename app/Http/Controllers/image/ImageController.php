@@ -20,7 +20,7 @@ class ImageController extends Controller
 
       $fileName = null;
       if($request->hasfile('image')){
-        $fileName ='jashim'.'.'.date('Ymdhmsis').'.'.$request->file('image')->getClientOriginalExtension();
+        $fileName ="jashim".'.'.date('Ymdhmsis').'.'.$request->file('image')->getClientOriginalExtension();
         $request->file('image')->storeAs('/upload/image/',$fileName);
       }
       Picture::create([
@@ -34,6 +34,23 @@ class ImageController extends Controller
       $images = Picture::all();
       return view('imageUpload.image_view',compact('images'));
     }
+
+
+    public function delete_pic($id){
+      $imagedelete=Picture::find($id);
+      $fileName = $imagedelete->image; 
+      $removeFile=public_path(). '/upload/image/'.$fileName;
+      File::delete($removeFile);         
+      $imagedelete->delete();
+
+        return back();
+    }
+
+
+
+
+
+
 
     public function edit($id){
       $imageEdit = Picture::find($id);
