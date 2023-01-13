@@ -5,6 +5,7 @@ namespace App\Http\Controllers\image;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Picture;
+use Illuminate\Support\Facades\File;
 
 class ImageController extends Controller
 {
@@ -38,4 +39,35 @@ class ImageController extends Controller
       $imageEdit = Picture::find($id);
       return view('imageUpload.imageEdit',compact('imageEdit'));
     }
+
+    public function update(Request $request,$id){
+      $request->validate([
+        'image' => 'required',
+      ]);
+
+      $updateImage = Picture::find($id);
+      $fileName =$updateImage->image;
+
+      if($request->hasfile('image')){
+        $removeFile = public_path().'/upload/image/'.$fileName;
+        File::delete($removeFile);
+        $fileName ='jashim'.'.'.date('Ymdhmsis').'.'.$request->file('image')->getClientOriginalExtension();
+        $request->file('image')->storeAs('/upload/image/',$fileName);
+      }
+      $updateImage->update([
+        'image'=> $fileName,
+      ]);
+      return to_route('image.list')->with('success','Image Updated Successfully');
+
+    }
+
+    public function destroy($id){
+      Picture::find($id)->delete();
+      return back();
+    }
 }
+
+
+
+
+

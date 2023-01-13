@@ -20,6 +20,9 @@
     </div>
     <a href="{{route('image.form')}}" class="btn btn-outline-success">Form</a>
     <br></br>
+    @if(Session::has('success'))
+    <p class="alert alert-primary">{{Session::get('success')}}</p>
+    @endif
     <table class="table table-bordered border-primary table-hover table-striped text-center">
         <thead>
             <tr>
